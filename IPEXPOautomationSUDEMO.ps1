@@ -34,12 +34,6 @@ Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO IaaS VM Creation Demo 
     $vmName = "IP-EXPO-VM"
     $computerName = "IP-EXPO-VM"
     $vmSize = "Standard_A3"
-
-## Azure Resource Manager TAGS
-
-    $myTags = New-Object System.Collections.ArrayList;
-    $myTags.Add(@{ Name="owner"; Value="SystemsUp"})
-    $myTags.Add(@{ Name="env"; Value="Demo"})
     
 ###########################################################
 #Do Not Edit Below This Point                             #
@@ -55,7 +49,7 @@ Select-AzureRmSubscription -SubscriptionName $subscription
 
 # Create a new Resource Group
 
-New-AzureRmResourceGroup -Name $rgname -Location $region -Tags $myTags
+New-AzureRmResourceGroup -Name $rgname -Location $region 
 
 Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO Azure Resource Group Created."
 
@@ -65,7 +59,7 @@ $newSubnetParams = @{
 'Name' = $subnet1Name
 'AddressPrefix' = $vnetSubnetAddressPrefix
 }
-$subnet = New-AzureRmVirtualNetworkSubnetConfig @newSubnetParams -Tags $myTags
+$subnet = New-AzureRmVirtualNetworkSubnetConfig @newSubnetParams 
 
 Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO IaaS Virtual Machine Subnet Created."
 
@@ -77,7 +71,7 @@ $newVNetParams = @{
 'Location' = $region
 'AddressPrefix' = $vnetAddressPrefix
 }
-$vNet = New-AzureRmVirtualNetwork @newVNetParams -Subnet $subnet -Tags $myTags
+$vNet = New-AzureRmVirtualNetwork @newVNetParams -Subnet $subnet 
 
 Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO IaaS Virtual Machine Network Created."
 
@@ -89,7 +83,7 @@ $newStorageAcctParams = @{
 'Type' = $storageType
 'Location' = $region
 }
-$storageAccount = New-AzureRmStorageAccount @newStorageAcctParams -Tags $myTags
+$storageAccount = New-AzureRmStorageAccount @newStorageAcctParams 
 
 Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO IaaS Virtual Machine LRS Storage Account Created."
 
@@ -102,7 +96,7 @@ $newPublicIpParams = @{
 'DomainNameLabel' = $ipdomain
 'Location' = $region
 }
-$publicIp = New-AzureRmPublicIpAddress @newPublicIpParams -Tags $myTags
+$publicIp = New-AzureRmPublicIpAddress @newPublicIpParams 
 
 Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO IaaS Virtual Machine Public IP Address Created."
 
@@ -115,7 +109,7 @@ $newVNicParams = @{
 'SubnetId' = $vNet.Subnets[0].Id
 'PublicIpAddressId' = $publicIp.Id
 }
-$vNic = New-AzureRmNetworkInterface @newVNicParams -Tags $myTags
+$vNic = New-AzureRmNetworkInterface @newVNicParams 
 
 Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO IaaS Virtual Machine Network Interface Created."
 
@@ -185,7 +179,7 @@ $newVmParams = @{
 'Location' = $region
 'VM' = $vm
 }
-New-AzureRmVM @newVmParams -Tags $myTags
+New-AzureRmVM @newVmParams 
 
 Write-Output "$(Get-Date –f $timeStampFormat) - IP-EXPO IaaS VM Creation Demo Completed."
 
