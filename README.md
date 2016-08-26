@@ -1,6 +1,7 @@
 # Azure-IPEXPO-Automation-Demo
 Azure IaaS Automation script demo
-PowerShell to build all of the various components that a particular VM requires in Azure to eventually come up with a fully-functioning Azure VM.
+
+This repoistory contains a PowerShell automation script that will build all of the various components that a newly created VM requires in Azure.
 
 At its most basic, an ARM VM requires eight individual components
 
